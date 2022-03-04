@@ -1,11 +1,13 @@
-import Header from '../../components/header/Header'
 import { useEffect } from 'react'
+import { useNavigate, Navigate } from 'react-router-dom'
+
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchUserData } from '../../redux/features/user/userSlice'
-import { useNavigate, Navigate } from 'react-router-dom'
+
 import Button from '../../components/buttons/Button'
-import WorkspaceButton from '../../components/buttons/WorkspaceButton'
+import Header from '../../components/header/Header'
 import CircularProgress from '@mui/material/CircularProgress'
+import WorkspaceList from '../../components/lists/WorkspaceList'
 
 const HomePage = () => {
 
@@ -13,7 +15,7 @@ const HomePage = () => {
   const navigate = useNavigate()
 
   const status = useSelector(({ userData: { status } }) => status)
-  const user = useSelector(({ userData: { user } }) => user)
+  const personalData = useSelector(({ userData: { personalData } }) => personalData)
 
   const handleLogout = () => {
     localStorage.removeItem('authToken')
@@ -29,15 +31,16 @@ const HomePage = () => {
       {status === 'error' ? <Navigate to="/login" /> : null}
 
       <Header
-        label={status === 'idle' ? user?.username : <CircularProgress />}
+        label={status === 'idle' ? personalData?.username : <CircularProgress />}
         buttons={[
-          <WorkspaceButton />,
           <Button
             label="Logout"
             onClick={handleLogout}
           />
         ]}
       />
+
+      <WorkspaceList />
     </div>
   )
 }

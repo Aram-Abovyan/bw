@@ -13,9 +13,9 @@ exports.addWorkspace = async (req, res, next) => {
   res.json(workspace)
 }
 
-exports.getWorkspaces = async (req, res, next) => {
-  const { user: { _id: creator} } = req
-  const workspaces = await Workspace.find({creator})
+exports.getWorkspaceData = async (req, res, next) => {
+  
+  const workspaceData = await Workspace.findOne({_id: req.params.id}).populate('members')
 
-  res.json(workspaces)
+  res.json(workspaceData)
 }

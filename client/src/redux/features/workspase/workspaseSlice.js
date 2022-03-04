@@ -1,10 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { createSelector } from '@reduxjs/toolkit'
 
-export const selectWorkspaces = createSelector(({workspace}) => workspace, ({workspaces}) => workspaces)
-
-export const fetchWorkspaces = createAsyncThunk('workspace/fetchWorkspaces', async () => {
+export const fetchWorkspace = createAsyncThunk('workspace/fetchWorkspace', async ({ id }) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -12,43 +9,34 @@ export const fetchWorkspaces = createAsyncThunk('workspace/fetchWorkspaces', asy
     }
   }
 
-  const { data } = await axios.get('/api/workspace', config)
+  const { data } = await axios.get(`/api/workspace/${id}`, config)
 
   return data
 })
 
 const initialState = {
   status: 'loading',
-  selectedWorkspaceId: null,
-  workspaces: {}
+  data: {}
 }
 
 const workspaceSlice = createSlice({
   name: 'workspace',
   initialState,
-  reducers: {
-    workspaceSelected(state, action) {
-      state.selectedWorkspaceId = action.payload
-    }
-  },
   extraReducers: builder => {
     builder
-      .addCase(fetchWorkspaces.pending, (state, action) => {
+      .addCase(fetchWorkspace.pending, state => {
         state.status = 'loading'
       })
-      .addCase(fetchWorkspaces.fulfilled, (state, action) => {
-        const workspaces = {}
-
-        action.payload.forEach(workspace => {
-          workspaces[workspace._id] = workspace
-        })
-
-        state.selectedWorkspaceId = action.payload[0]._id
-        state.workspaces = workspaces
+      .addCase(fetchWorkspace.fulfilled, (state, action) => {
+        const { name, creator, members, _id} = action.payload
+        state.name = name
+        state.creator = creator
+        state.members = members
+        state.id = _id
         state.status = 'idle'
 
       })
-      .addCase(fetchWorkspaces.rejected, (state, action) => {
+      .addCase(fetchWorkspace.rejected, (state, action) => {
         state.status = 'error'
       })
   }

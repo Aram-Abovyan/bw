@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router-dom'
 import {
   HomePage,
   LoginPage,
-  RegisterPage
+  RegisterPage,
+  WorkspacePage,
 } from './pages'
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/workspace/:id" element={<WorkspacePage />} />
       </Routes>
     </div>
   )

@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const authUser = (email, password) => async () => {
+import { fetchWorkspaces, workspaceSelected } from '../workspase/workspaseSlice'
+
+export const authUser = (email, password) => async (args, a) => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -23,12 +25,13 @@ export const fetchUserData = createAsyncThunk('user/fetchUserData', async () => 
 
   const { data } = await axios.get('/api/home', config)
 
-  return data.success ? data.data.user : data.error
+  return data.userData
 })
 
 const initialState = {
   status: 'loading',
-  user: {}
+  personalData: {},
+  workspaces: []
 }
 
 const userSlice = createSlice({
@@ -40,7 +43,9 @@ const userSlice = createSlice({
         state.status = 'loading'
       })
       .addCase(fetchUserData.fulfilled, (state, action) => {
-        state.user = action.payload
+        const { personalData, workspaces } = action.payload
+        state.personalData = personalData
+        state.workspaces = workspaces
         state.status = 'idle'
       })
       .addCase(fetchUserData.rejected, (state, action) => {
