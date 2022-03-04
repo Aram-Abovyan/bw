@@ -10,6 +10,8 @@ import Button from '../../components/buttons/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 import MemberList from '../../components/lists/MemberList'
 
+import './workspace-page.css'
+
 const WorkspacePage = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -27,7 +29,7 @@ const WorkspacePage = () => {
   }, [])
 
   return (
-    <div>
+    <div id="workspace-page">
       <Header
         label={status === 'loading' ? <CircularProgress /> : workspaceName}
         buttons={[
@@ -38,7 +40,9 @@ const WorkspacePage = () => {
         ]}
       />
 
-      <MemberList />
+      <div className="member-list">
+        <MemberList />
+      </div>
     </div>
   )
 }

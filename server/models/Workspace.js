@@ -6,7 +6,8 @@ const WorkspaceSchema = new Schema({
     type: String,
   },
   creator: {
-    type: mongoose.Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
   members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 })

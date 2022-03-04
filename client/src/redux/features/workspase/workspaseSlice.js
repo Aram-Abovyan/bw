@@ -28,13 +28,14 @@ const workspaceSlice = createSlice({
         state.status = 'loading'
       })
       .addCase(fetchWorkspace.fulfilled, (state, action) => {
-        const { name, creator, members, _id} = action.payload
+        const { name, creator, members, _id, currentUserId } = action.payload.workspaceData
         state.name = name
         state.creator = creator
         state.members = members
         state.id = _id
+        state.currentUserId = currentUserId
         state.status = 'idle'
-
+        state.currentUserId = action.payload.currentUserId
       })
       .addCase(fetchWorkspace.rejected, (state, action) => {
         state.status = 'error'

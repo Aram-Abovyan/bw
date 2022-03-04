@@ -27,7 +27,7 @@ const WorkspaceList = () => {
     <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       {
         status === 'loading' ?
-        <CircularProgress /> :
+        <CircularProgress sx={{ m: 3}} /> :
         workspaces.map(({ _id: id, name }) => (
             <ListItem
               key={id}
