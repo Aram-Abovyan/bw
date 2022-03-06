@@ -17,7 +17,7 @@ const darkTheme = createTheme({
 
 const Header = ({ label, buttons = [] }) => {
   return (
-    <Stack spacing={2} sx={{ flexGrow: 1 }}>
+    <Stack spacing={2} >
       <ThemeProvider theme={darkTheme}>
         <AppBar position="static" color="primary">
           <Toolbar>

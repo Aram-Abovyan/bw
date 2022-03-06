@@ -19,6 +19,5 @@ exports.getWorkspaceData = async (req, res, next) => {
   .populate({path: 'creator'})
   .populate('members')
 
-
   res.json({workspaceData, currentUserId: req.user.id})
 }

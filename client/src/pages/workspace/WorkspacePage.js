@@ -9,6 +9,7 @@ import Header from '../../components/header/Header'
 import Button from '../../components/buttons/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 import MemberList from '../../components/lists/MemberList'
+import Menu from '../../components/menu/Menu'
 
 import './workspace-page.css'
 
@@ -33,15 +34,17 @@ const WorkspacePage = () => {
       <Header
         label={status === 'loading' ? <CircularProgress /> : workspaceName}
         buttons={[
+          <Menu />,
           <Button
             label="Logout"
             onClick={handleLogout}
           />
         ]}
       />
-
-      <div className="member-list">
-        <MemberList />
+      <div className="page-content">
+        <div className="member-list">
+          <MemberList />
+        </div>
       </div>
     </div>
   )

@@ -2,6 +2,7 @@ import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '../buttons/Button'
+import Link from '@mui/material/Link'
 
 const LoginForm = () => {
   return (
@@ -11,7 +12,7 @@ const LoginForm = () => {
           display: 'flex',
           flexDirection: 'column',
           alignContent: 'center',
-          pt: 4, pr: 2, pb: 4, pl: 2
+          pt: 4, pr: 2, pb: 2, pl: 2
         }}
       >
         <TextField
@@ -46,6 +47,10 @@ const LoginForm = () => {
           label="Register"
           onClick={() => alert()}
         />
+
+        <Link sx={{mt: 2}} href="/login" underline="hover">
+          Login
+        </Link>
       </Box>
     </Paper>
   )

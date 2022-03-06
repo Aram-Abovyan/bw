@@ -8,8 +8,19 @@ import Button from '../../components/buttons/Button'
 import Header from '../../components/header/Header'
 import CircularProgress from '@mui/material/CircularProgress'
 import WorkspaceList from '../../components/lists/WorkspaceList'
+import Menu from '../../components/menu/Menu'
+
+import './home-page.css'
 
 const HomePage = () => {
+  const menuItems = [
+    {
+      label: 'Add workspace',
+      handleClick() {
+        alert('Add workspace')
+      }
+    },
+  ]
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -33,14 +44,16 @@ const HomePage = () => {
       <Header
         label={status === 'idle' ? personalData?.username : <CircularProgress />}
         buttons={[
+          <Menu menuItems={menuItems} />,
           <Button
             label="Logout"
             onClick={handleLogout}
           />
         ]}
       />
-
-      <WorkspaceList />
+      <div className="workspace-list">
+        <WorkspaceList />
+      </div>
     </div>
   )
 }

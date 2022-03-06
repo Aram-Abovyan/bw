@@ -1,11 +1,15 @@
+import { useState } from 'react'
+
+import { useNavigate } from 'react-router-dom'
+
+import { useDispatch } from 'react-redux'
+import { authUser } from '../../redux/features/user/userSlice'
+
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '../buttons/Button'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { authUser } from '../../redux/features/user/userSlice'
-import { useNavigate } from 'react-router-dom'
+import Link from '@mui/material/Link'
 
 const LoginForm = () => {
   const [ email, setEmail ] = useState('')
@@ -26,7 +30,7 @@ const LoginForm = () => {
           display: 'flex',
           flexDirection: 'column',
           alignContent: 'center',
-          pt: 4, pr: 2, pb: 4, pl: 2
+          pt: 4, pr: 2, pb: 2, pl: 2
         }}
       >
         <TextField
@@ -51,6 +55,10 @@ const LoginForm = () => {
           label="Login"
           onClick={loginHandler}
         />
+
+        <Link sx={{mt: 2}} href="/register" underline="hover">
+          Register
+        </Link>
       </Box>
     </Paper>
   )
