@@ -1,22 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { request } from '../../../api/request'
 
 export const fetchWorkspace = createAsyncThunk('workspace/fetchWorkspace', async ({ id }) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-    }
-  }
-
-  const { data } = await axios.get(`/api/workspace/${id}`, config)
+  const data = await request.workspaceData(id)
 
   return data
 })
 
 const initialState = {
-  status: 'loading',
-  data: {}
+  status: 'loading'
 }
 
 const workspaceSlice = createSlice({

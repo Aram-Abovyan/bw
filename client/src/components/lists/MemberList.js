@@ -88,9 +88,14 @@ const MemberList = () => {
             <AccordionDetails sx={{display: 'flex', justifyContent: 'space-between'}}>
               <Typography>{creator.email}</Typography>
               <Typography>creator</Typography>
-              <Button
-                label={<QuestionAnswerSharpIcon />}
-              />
+              {
+                creator._id === currentUserId ?
+                <Typography>me</Typography> :
+                <Button
+                  label={<QuestionAnswerSharpIcon />}
+                />
+              }
+              
             </AccordionDetails>
           </Accordion>
         )
@@ -109,9 +114,13 @@ const MemberList = () => {
 
           <AccordionDetails sx={{display: 'flex', justifyContent: 'space-between'}}>
             <Typography>{email}</Typography>
-            <Button
-              label={<QuestionAnswerSharpIcon />}
-            />
+            {
+              currentUserId === id ?
+              <Typography>me</Typography> :
+              <Button
+                label={<QuestionAnswerSharpIcon />}
+              />
+            }
           </AccordionDetails>
 
         </Accordion>

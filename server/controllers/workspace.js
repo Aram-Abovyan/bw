@@ -20,5 +20,5 @@ exports.getWorkspaceData = async (req, res, next) => {
   .populate('members')
 
 
-  res.json({workspaceData, currentUserId: req.params.id})
+  res.json({workspaceData, currentUserId: req.user.id})
 }
