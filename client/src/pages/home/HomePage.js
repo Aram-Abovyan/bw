@@ -8,7 +8,7 @@ import Button from '../../components/buttons/Button'
 import Header from '../../components/header/Header'
 import CircularProgress from '@mui/material/CircularProgress'
 import WorkspaceList from '../../components/lists/WorkspaceList'
-import Menu from '../../components/menu/Menu'
+import WorkspaceFormDialog from '../../components/dialog/WorkspaceFormDialog'
 
 import './home-page.css'
 
@@ -44,7 +44,7 @@ const HomePage = () => {
       <Header
         label={status === 'idle' ? personalData?.username : <CircularProgress />}
         buttons={[
-          <Menu menuItems={menuItems} />,
+          <WorkspaceFormDialog />,
           <Button
             label="Logout"
             onClick={handleLogout}

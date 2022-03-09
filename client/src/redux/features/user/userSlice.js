@@ -12,6 +12,12 @@ export const fetchUserData = createAsyncThunk('user/fetchUserData', async () => 
   return data.userData
 })
 
+export const addWorkspace = createAsyncThunk('user/addWorkspace', async ({ name }) => {
+  const workspace = await request.createWorkspace(name)
+
+  return workspace
+})
+
 const initialState = {
   status: 'loading',
   personalData: {},
@@ -33,6 +39,18 @@ const userSlice = createSlice({
         state.status = 'idle'
       })
       .addCase(fetchUserData.rejected, (state, action) => {
+        state.status = 'error'
+      })
+
+      .addCase(addWorkspace.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(addWorkspace.fulfilled, (state, action) => {
+        const workspace = action.payload
+        state.workspaces.push(workspace)
+        state.status = 'idle'
+      })
+      .addCase(addWorkspace.rejected, (state, action) => {
         state.status = 'error'
       })
   }

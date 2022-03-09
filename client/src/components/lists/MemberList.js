@@ -1,6 +1,9 @@
 import * as React from 'react'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { removeMember } from '../../redux/features/workspase/workspaseSlice'
+
+import { useParams } from 'react-router'
 
 import { styled } from '@mui/material/styles'
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp'
@@ -10,6 +13,7 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
 import QuestionAnswerSharpIcon from '@mui/icons-material/QuestionAnswerSharp'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import StarIcon from '@mui/icons-material/Star';
 import Button from '../buttons/Button'
 
@@ -51,6 +55,8 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 const MemberList = () => {
   const [expanded, setExpanded] = React.useState('panel1')
+  const dispatch = useDispatch()
+  const params = useParams()
 
   const status = useSelector(({ workspace: { status } }) => status)
   const members = useSelector(({ workspace: { members } }) => members)
@@ -59,6 +65,13 @@ const MemberList = () => {
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false)
+  }
+
+  const handleRemove = (id) => () => {
+    dispatch(removeMember({
+      workspaceId: params.id,
+      memberId: id
+    }))
   }
 
   return (
@@ -114,6 +127,11 @@ const MemberList = () => {
 
           <AccordionDetails sx={{display: 'flex', justifyContent: 'space-between'}}>
             <Typography>{email}</Typography>
+            <Button
+              onClick={handleRemove(id)}
+              label={<DeleteForeverIcon />}
+              color="error"
+            />
             {
               currentUserId === id ?
               <Typography>me</Typography> :

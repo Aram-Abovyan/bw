@@ -12,6 +12,8 @@ app.use(express.json())
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/home', require('./routes/home'))
 app.use('/api/workspace', require('./routes/workspace'))
+app.use('/api/search', require('./routes/search'))
+app.use('/api/member', require('./routes/member'))
 
 app.use(errorHandler)
 

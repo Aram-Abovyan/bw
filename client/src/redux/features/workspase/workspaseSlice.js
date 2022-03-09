@@ -1,11 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
 import { request } from '../../../api/request'
 
 export const fetchWorkspace = createAsyncThunk('workspace/fetchWorkspace', async ({ id }) => {
   const data = await request.workspaceData(id)
 
   return data
+})
+
+export const addMembers = createAsyncThunk('workspace/addMembers', async ({ workspaceId, members }) => {
+  const workspace = await request.addMembers(workspaceId, members)
+  return workspace
+})
+
+export const removeMember = createAsyncThunk('workspace/removeMember', async ({ workspaceId, memberId }) => {
+  const members = await request.removeMember(workspaceId, memberId)
+
+  return members
 })
 
 const initialState = {
@@ -32,6 +42,25 @@ const workspaceSlice = createSlice({
       })
       .addCase(fetchWorkspace.rejected, (state, action) => {
         state.status = 'error'
+      })
+
+      .addCase(addMembers.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(addMembers.fulfilled, (state, action) => {
+        state.members = action.payload
+        state.status = 'idle'
+      })
+      .addCase(addMembers.rejected, (state, action) => {
+        console.log(action);
+      })
+
+      .addCase(removeMember.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(removeMember.fulfilled, (state, action) => {
+        state.members = action.payload
+        state.status = 'idle'
       })
   }
 })
