@@ -3,6 +3,7 @@ import { removeMember } from '../redux/features/workspase/workspaseSlice'
 
 export const request = {
   loginUrl: '/api/auth/login',
+  registerUrl: '/api/auth/register',
   homeUrl: '/api/home',
   workspaceUrl: '/api/workspace/',
   searchUrl: '/api/search',
@@ -28,8 +29,21 @@ export const request = {
     return data
   },
 
+  async register(params) {
+    const config = this.configs.default
+    const { data } = await axios.post(this.registerUrl, params, config)
+    return data
+  },
+
   async userData() {
-    const config = this.configs.withAuth
+    // const config = this.configs.withAuth
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+      }
+    }
     const { data } = await axios.get(this.homeUrl, config)
 
     return data

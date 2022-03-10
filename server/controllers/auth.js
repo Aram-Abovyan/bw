@@ -1,8 +1,15 @@
 const User = require('../models/User')
 const ErrorResponse = require('../utils/errrorResponse')
+const { validationResult } = require('express-validator')
 
 exports.register = async (req, res, next) => {
   const { username, email, password } = req.body
+
+  const errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    return res.json(errors)
+  }
 
   try {
     const user = await User.create({
@@ -20,8 +27,10 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   const { email, password } = req.body
 
-  if (!email || !password) {
-    return next(new ErrorResponse('Please provide email and password', 400))
+  const errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    return res.json(errors)
   }
 
   try {

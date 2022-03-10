@@ -6,6 +6,11 @@ export const authUser = (email, password) => () => {
   .then(data => localStorage.setItem('authToken', data.token))
 }
 
+export const registerUser = (username, email, password, confirmPassword) => {
+  request.register(username, email, password, confirmPassword)
+  .then(data => localStorage.setItem('authToken', data.token))
+}
+
 export const fetchUserData = createAsyncThunk('user/fetchUserData', async () => {
   const data = await request.userData()
 

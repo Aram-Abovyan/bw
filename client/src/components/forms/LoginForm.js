@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -11,6 +11,11 @@ import TextField from '@mui/material/TextField'
 import Button from '../buttons/Button'
 import Link from '@mui/material/Link'
 
+// import { useYupValidationResolver } from '../../validation/validation'
+// import { useForm } from 'react-hook-form'
+// import * as yup from 'yup'
+
+
 const LoginForm = () => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
@@ -22,6 +27,19 @@ const LoginForm = () => {
     await dispatch(authUser(email, password))
     navigate('/')
   }
+
+  // const validationSchema = useMemo(
+  //   () =>
+  //     yup.object({
+  //       // username: yup.string().required('Required'),
+  //       email: yup.string().required('Required')
+  //     }),
+  //   []
+  // )
+
+  // const resolver = useYupValidationResolver(validationSchema)
+  // const { handleSubmit, errors, register } = useForm({ resolver })
+  // console.log('errors', errors)
 
   return (
     <Paper elevation={6}>
@@ -39,6 +57,7 @@ const LoginForm = () => {
           required
           label="Email"
           margin="normal"
+          // {...register('email')}
         />
 
         <TextField
